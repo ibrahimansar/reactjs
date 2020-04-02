@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import classes from './App.css';
+
 import Person from './Person/Person';
-import person from './Person/Person';
 
 class App extends Component{
   state = {
@@ -11,8 +10,8 @@ class App extends Component{
       {id:'2',Name:'Misbahi', age:20},
       {id:'3', Name:'Fasla', age:20}
     ],
-    showPerson : false
-  }
+    showPersons : false
+ }
 
  nameChangedHandler=(event, id)=>{
 
@@ -31,16 +30,6 @@ class App extends Component{
   this.setState( {persons: persons });
  }
 
- switchNameHandler = (NewName) => {
-    this.setState( {
-      persons: [
-        {Name: NewName, age:21},
-        {Name:'Misbahi', age:20},
-        {Name:'Fasla', age:20}
-      ]
-    });
-  }
-
   deletePersonHandler = (personIndex) => {
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
@@ -48,22 +37,14 @@ class App extends Component{
   }
 
   togglePersonHandler =() =>{
-  const doesShow = this.state.showPerson;  this.setState({showPerson: !doesShow});
+  const doesShow = this.state.showPersons;  this.setState({showPersons: !doesShow});
   }
 
    render(){
-   
-    const style= {
-      backgroundColor : 'white',
-      padding : '8px',
-      font : 'inherit',
-      border: '1px solid blue',
-      cursor: 'pointer'
-    };
 
     let persons= null;
 
-    if(this.state.showPerson){
+    if(this.state.showPersons){
      persons=
       (
       <div>
@@ -77,15 +58,26 @@ class App extends Component{
         })}      
       </div>
       );
+      // style.backgroundColor ='red';
+      // style[':hover']= {backgroundColor: 'salmon',
+      // color: 'black'}
     }
      
+    const AssignedClasses =[];
+
+    if(this.state.persons.length <= 2){
+      AssignedClasses.push(classes.red);
+    }
+    if(this.state.persons.length <=1){
+      AssignedClasses.push(classes.bold);
+    }
+
    return (
-     <div className="App">
+     <div className={classes.App}>
      <h1> hi, Nafly kaka </h1>
-     <p>it works</p>
-     <button 
-     style={style}
-     onClick ={this.togglePersonHandler}>Toggle person</button>
+     <p className={AssignedClasses.join(' ')} >it works</p>
+     <button onClick ={this.togglePersonHandler} alt={this.state.showPersons}>Toggle person
+     </button>
      {persons}
      </div>
    );
