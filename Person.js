@@ -1,11 +1,20 @@
 import React from 'react';
-const person = (props) => {
+
+import classes from './Person.css';
+
+const person = ( props ) => {
+   // const rnd = Math.random();
+
+    // if ( rnd > 0.7 ) {
+    //     throw new Error( 'Something went wrong' );
+    // }
     return (
-    <div>
-    <p onClick={props.click}> i'm {props.Name} and i am {props.age} age old</p>
-    <p> {props.children} </p>
-    </div>
-    );
+        <div className={classes.Person}>
+            <p onClick={props.click}>I'm {props.Name} and I am {props.age} years old!</p>
+            <p>{props.children}</p>
+            <input type="text" onChange={props.changed} value={props.Name} />
+        </div>
+    )
 };
 
 export default person;
