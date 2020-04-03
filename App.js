@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './App.css';
-
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
 class App extends Component{
@@ -43,24 +43,25 @@ class App extends Component{
    render(){
 
     let persons= null;
+    let btnClass = '';
 
     if(this.state.showPersons){
      persons=
       (
       <div>
         {this.state.persons.map( (person, index) => {
-          return <Person 
+          return <ErrorBoundary key={person.id}>
+          <Person 
           click = {() => this.deletePersonHandler(index)}
           Name= {person.Name}
           age= {person.age} 
-          key={person.id}
           changed ={(event)=> this.nameChangedHandler(event, person.id)} />
+          </ErrorBoundary>
         })}      
       </div>
       );
-      // style.backgroundColor ='red';
-      // style[':hover']= {backgroundColor: 'salmon',
-      // color: 'black'}
+
+      btnClass = classes.Red;
     }
      
     const AssignedClasses =[];
@@ -76,12 +77,11 @@ class App extends Component{
      <div className={classes.App}>
      <h1> hi, Nafly kaka </h1>
      <p className={AssignedClasses.join(' ')} >it works</p>
-     <button onClick ={this.togglePersonHandler} alt={this.state.showPersons}>Toggle person
+     <button onClick ={this.togglePersonHandler} className={btnClass}>Toggle person
      </button>
      {persons}
      </div>
    );
-   //return React.createElement('div',{className:'App'},React.createElement('h1',null,'hello'));
   }
 }  
   export default App;
